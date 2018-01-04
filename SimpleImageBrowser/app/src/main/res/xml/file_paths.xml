@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <paths>
+        <files-path path = "com.jiekexueyuan.simpleimagebrowser" name="file_root"/>
+        <files-path path = "xueba" name = "external_storage_root"/>
+    </paths>
+</PreferenceScreen>
+

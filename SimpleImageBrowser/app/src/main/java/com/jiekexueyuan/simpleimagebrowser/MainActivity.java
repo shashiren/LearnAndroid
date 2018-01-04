@@ -6,7 +6,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -33,22 +32,37 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        Uri mUri = Uri.parse("file://"+file.getPath());
 //        i.setDataAndType(mUri, "image/*");
 //        startActivity(i);
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        String filePath = "drawable-xxxhdpi/xueba.jpg";
-        Uri uri;
-        if (Build.VERSION.SDK_INT >= 24) {
-            File file = new File(filePath);
-            Log.i("mine",file.length()+"");
-            uri = FileProvider.getUriForFile(this, getApplicationContext().getPackageName() + ".provider", new File(filePath));
-            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);//注意加上这句话
 
-        } else {
-            uri = Uri.fromFile(new File(filePath));
-        }
-        intent.setDataAndType(uri, "image/*");
-        startActivity(intent);
+
+//        Intent intent = new Intent(Intent.ACTION_VIEW);
+//        String filePath = "drawable-xxxhdpi/xueba.jpg";
+//        Uri uri;
+//        if (Build.VERSION.SDK_INT >= 24) {
+//            File file = new File(filePath);
+//            Log.i("mine",file.length()+"");
+//            uri = FileProvider.getUriForFile(this, getApplicationContext().getPackageName() + ".fileprovider", new File(filePath));
+//            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);//注意加上这句话
+//
+//        } else {
+//            uri = Uri.fromFile(new File(filePath));
+//        }
+//        intent.setDataAndType(uri, "image/*");
+//        startActivity(intent);
+
 
 //        startActivity(new Intent(ImageView.ACTION));
+
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        File file = new File("external_storage_root");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            Uri contentUri = FileProvider.getUriForFile(this, "com.jiekexueyuan.simpleimagebrowser.fileprovider",file);
+            intent.setDataAndType(contentUri, "application/vnd.android.package-archive");
+        } else {
+            intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        }
+        startActivity(intent);
 
 
     }
