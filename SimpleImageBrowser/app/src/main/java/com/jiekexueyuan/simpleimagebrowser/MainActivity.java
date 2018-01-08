@@ -53,7 +53,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        startActivity(new Intent(ImageView.ACTION));
 
         Intent intent = new Intent(Intent.ACTION_VIEW);
-        File file = new File("external_storage_root");
+//        File imagePath = new File(Context.getFilesDir(),"images");
+        File file = new File("my_images");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             Uri contentUri = FileProvider.getUriForFile(this, "com.jiekexueyuan.simpleimagebrowser.fileprovider",file);
@@ -63,7 +64,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         }
         startActivity(intent);
-
-
     }
+
 }
